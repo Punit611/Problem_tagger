@@ -5,7 +5,7 @@ const path=require("path");
 const session = require("express-session");
 const MongoDBStore=require("connect-mongodb-session")(session);
 const req = require("express/lib/request");
-const port =process.env.PORT || 8000;
+const port =process.env.PORT || 3000;
 
 const addProblemRouter=require("./routers/addproblem");
 const authRouter=require("./routers/auth");
