@@ -5,6 +5,7 @@ const path=require("path");
 const session = require("express-session");
 const MongoDBStore=require("connect-mongodb-session")(session);
 const req = require("express/lib/request");
+const port =process.env.PORT || 8000;
 
 const addProblemRouter=require("./routers/addproblem");
 const authRouter=require("./routers/auth");
@@ -15,8 +16,7 @@ const tagRouter=require("./routers/tag");
 const profileRouter=require("./routers/profile");
 const editinfoRouter=require("./routers/edit_info");
 
-
-const MONGODB_URI = "mongodb://localhost:27017/problem_tagger_new"
+const MONGODB_URI = "mongodb+srv://punit:problem_tagger@cluster0.xttm0.mongodb.net/?retryWrites=true&w=majority"
 const store=new MongoDBStore({uri:MONGODB_URI,collection:"sessions"});
 
 
@@ -44,8 +44,8 @@ app.use(tagRouter);
 app.use(profileRouter);
 app.use(editinfoRouter);
 
-app.listen(8000,()=>{
-    console.log("connected at localhost:8000");
+app.listen(port,()=>{
+    console.log("connected at :",port);
 });
 
 mongodb.connect(MONGODB_URI,()=>{
