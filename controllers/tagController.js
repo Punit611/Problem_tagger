@@ -11,7 +11,7 @@ exports.getTaginfo = async (req, res) => {
 
     let tag = await Tag.find({});
 
-    if (tag.length() == 0) {
+    if (tag.length == 0) {
         res.redirect("/");
     }
     else {
