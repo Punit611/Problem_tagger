@@ -25,7 +25,16 @@ router.get("/profile",async (req,res)=>{
         }
     );
     const user_tag=user_data.tags;
-    res.render("profile.ejs",{isLoggedIn,user,user_data,user_question,user_tag});
+    
+    var flag1=false;
+    var flag2=false;
+
+    if(user_tag.length>0)
+        flag1=true;
+    if(user_question.length>0)
+        flag2=true;
+
+    res.render("profile.ejs",{isLoggedIn,flag1,flag2,user,user_data,user_question,user_tag});
 });
 
 

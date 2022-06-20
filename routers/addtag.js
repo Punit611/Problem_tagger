@@ -63,7 +63,8 @@ router.post("/addtag:id",async (req, res) => {
         
     });
 
-    res.redirect("/home");
+    const path="/read:"+id;
+    res.redirect(path);
 });
 
 module.exports=router;

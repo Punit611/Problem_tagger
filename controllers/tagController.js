@@ -21,7 +21,13 @@ exports.getTaginfo = async (req, res) => {
             user_tag = await User.find({ username: user });
             user_tag = user_tag[0].tags;
         }
-        res.render("tag.ejs", { isLoggedIn, user, tag, user_tag });
+        var flag =false;
+        if(user_tag!=null)
+        {
+            if(user_tag.length>0)
+                flag=true;
+        }
+        res.render("tag.ejs", { isLoggedIn,flag, user, tag, user_tag });
     }
 };
 
@@ -30,22 +36,32 @@ exports.selectedTag = async (req, res) => {
     const user = req.session.username;
 
     let tagName = req.body.checkbox;
+    
+    if(tagName==undefined)
+    {
+        
+    }
 
     if (typeof (tagName) == 'string') {
         tagName = Array(tagName);
+    
+        const question = await Question.find(
+            {
+                $or:
+                    [
+                        { "tags": { $all: tagName } },
+                        { "user_tag.tags": { $all: tagName } }
+                    ]
+
+            }
+        );
+        res.render("tagged_problem.ejs", { isLoggedIn, user, question });    
     }
-    const question = await Question.find(
-        {
-            $or:
-                [
-                    { "tags": { $all: tagName } },
-                    { "user_tag.tags": { $all: tagName } }
-                ]
-
-        }
-    );
+    else
+    {
+        res.redirect('/home');
+    }
 
 
-    res.render("tagged_problem.ejs", { isLoggedIn, user, question });
-
+    
 };
