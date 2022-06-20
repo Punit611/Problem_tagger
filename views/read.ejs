@@ -22,7 +22,7 @@
                                 </p>
                                 
                                 <p class="card-text">
-                                    <%- question.problem.replace(/\r\n\r\n/g, "</p><p>")%>
+                                    <%- question.problem.replace(/\r\n/g, "</p><p>").replace(/\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;')%>
                                 </p>
                             </div>
                             <form style="padding: 20px; background-color: aquamarine;text-align:center" action="/addtag:<%= question._id%>" method="post">
